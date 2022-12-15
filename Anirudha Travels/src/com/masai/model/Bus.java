@@ -1,5 +1,7 @@
 package com.masai.model;
 
+import java.sql.Time;
+
 public class Bus {
 
 	private String name;
@@ -66,8 +68,8 @@ public class Bus {
 		return arrival_time;
 	}
 
-	public void setArrival_time(String arrival_time) {
-		this.arrival_time = arrival_time;
+	public void setArrival_time(String time) {
+		this.arrival_time = time;
 	}
 
 	public String getDeparture_time() {
