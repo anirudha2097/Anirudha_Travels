@@ -5,6 +5,8 @@ import java.util.Scanner;
 import com.masai.dao.CustomerDao;
 import com.masai.dao.CustomerDaoImpl;
 import com.masai.exception.CustomerException;
+import com.masai.main.CustomerMain;
+import com.masai.main.CustomerMenu;
 import com.masai.model.Customer;
 
 public class LoginCustomer {
@@ -24,9 +26,6 @@ public class LoginCustomer {
 		
 		try {
 			Customer cust = custDao.loginCustomer(username, password);
-//			System.out.println("+-------------------------------------------+");
-//			System.out.println("| *******WELCOME TO ANIRUDHA TRAVELS******* |");
-//			System.out.println("+-------------------------------------------+");
 			
 			System.out.println("Welcome "+cust.getName().toUpperCase()+"!");
 			System.out.println("");
@@ -36,10 +35,17 @@ public class LoginCustomer {
 			System.out.println("Phone No.: "+cust.getPhone());
 			System.out.println("Email: "+cust.getEmail());
 			
+			System.out.println("-----------------------------------------");
+			System.out.println("");
+			CustomerMenu.main(args);
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
+			System.out.println("-----------------------------------------");
+			System.out.println("");
+			CustomerMain.main(args);
 		}
 	
+		sc.close();
 	}
 
 }

@@ -17,9 +17,9 @@ public interface CustomerDao {
 
 	public String bookeTicket(String busNo, int seats) throws CustomerException;
 	
-	public String cancelTicket(String username) throws CustomerException;
+	public String cancelTicket() throws CustomerException;
 	
-	public List<BookingHistory> bookingHistory(String username) throws CustomerException;
+	public List<BookingHistory> bookingHistory() throws CustomerException;
 
 	public String logout() throws CustomerException;
 }

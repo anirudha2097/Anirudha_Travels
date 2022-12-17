@@ -8,6 +8,7 @@ import com.masai.dao.CustomerDao;
 import com.masai.dao.CustomerDaoImpl;
 import com.masai.exception.BusException;
 import com.masai.exception.CustomerException;
+import com.masai.main.AdminMenu;
 import com.masai.model.Bus;
 import com.masai.model.Customer;
 
@@ -67,9 +68,17 @@ public class AddBus {
 		try {
 			String result = adminDao.addBus(bus);
 			System.out.println(result);
+			System.out.println("-----------------------------------------");
+			System.out.println("");
+			AdminMenu.main(args);
 		} catch (BusException e) {
 			System.out.println(e.getMessage());
+			System.out.println("-----------------------------------------");
+			System.out.println("");
+			AdminMenu.main(args);
 		}
+	
+		sc.close();
 	}
 
 }
