@@ -1,34 +1,22 @@
 package com.masai.usecases;
 
-import java.util.List;
-import java.util.Scanner;
-
 import com.masai.dao.CustomerDao;
 import com.masai.dao.CustomerDaoImpl;
 import com.masai.exception.CustomerException;
 import com.masai.main.CustomerMenu;
-import com.masai.model.BookingHistory;
-import com.masai.model.Bus;
+import com.masai.main.Main;
 
-public class ShowBookingHistory {
+public final class LogoutCustomer {
 
 	public static void main(String[] args) {
 		
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("Enter username");
-//		String username = sc.next();
-		
-
-		CustomerDao custDao = new CustomerDaoImpl();
+		CustomerDao cust = new CustomerDaoImpl();
 		
 		try {
-			List<BookingHistory> history = custDao.bookingHistory();
-			
-			history.forEach(s -> System.out.println(s));
+			String result = cust.logout();
 			System.out.println("-----------------------------------------");
 			System.out.println("");
-			CustomerMenu.main(args);
-			
+			Main.main(args);
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
 			System.out.println("-----------------------------------------");
@@ -36,7 +24,6 @@ public class ShowBookingHistory {
 			CustomerMenu.main(args);
 		}
 
-//		sc.close();
 	}
 
 }

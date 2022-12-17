@@ -6,6 +6,7 @@ import java.util.Scanner;
 import com.masai.dao.CustomerDao;
 import com.masai.dao.CustomerDaoImpl;
 import com.masai.exception.CustomerException;
+import com.masai.main.CustomerMenu;
 import com.masai.model.Bus;
 import com.masai.model.Customer;
 
@@ -33,18 +34,29 @@ public class SeeBusRoutes {
 			
 			if(buses.size()>0) {
 
-				System.out.println("Enter Bus No.:");
-				String busNo  = sc.next();
-				
-				String message = custDao.bookeTicket(busNo, seats);
-				
-				System.out.println(message);
+				System.out.println("1. Book Ticket");
+				System.out.println("2. Back To Menu");
+				int i = sc.nextInt();
+				BookTicket.seats = seats;
+				switch (i) {
+					case 1: BookTicket.main(args);
+					break;
+					case 2: CustomerMenu.main(args);
+					break;
+				}
 			}
+			System.out.println("-----------------------------------------");
+			System.out.println("");
+			CustomerMenu.main(args);
 			
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
+			System.out.println("-----------------------------------------");
+			System.out.println("");
+			CustomerMenu.main(args);
 		}
 	
+		sc.close();
 	}
 
 }

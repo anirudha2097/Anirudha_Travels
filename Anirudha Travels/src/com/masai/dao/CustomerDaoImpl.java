@@ -16,7 +16,7 @@ import com.masai.utility.DButil;
 
 public class CustomerDaoImpl implements CustomerDao {
 
-	public String email;
+	public static String email;
 	
 	@Override
 	public String registerCustomer(Customer cust) throws CustomerException {
@@ -37,6 +37,8 @@ public class CustomerDaoImpl implements CustomerDao {
 			
 			if(x>0) {
 				message = "Customer Registered Successfully.";
+			} else {
+				throw new CustomerException(message);
 			}
 			
 		} catch (SQLException e) {
@@ -66,7 +68,7 @@ public class CustomerDaoImpl implements CustomerDao {
 				cust.setPhone(rs.getString("phone_no"));
 				cust.setEmail(rs.getString("email"));
 				cust.setPassword(rs.getString("password"));
-				email = rs.getString("email");
+				email = username;
 			} else {
 				throw new CustomerException("Invalid username or password!");
 			}
@@ -144,13 +146,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public String cancelTicket(String username) throws CustomerException {
+	public String cancelTicket() throws CustomerException {
 		
 		String message = "Ticket not canceled!";
 		
 		try (Connection conn = DButil.provideConnection()){
 			PreparedStatement ps = conn.prepareStatement("select * from booking_status where email = ?");
-			ps.setString(1, username);
+			ps.setString(1, email);
 			
 			ResultSet rs = ps.executeQuery();
 			boolean flag = false;
@@ -183,14 +185,14 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public List<BookingHistory> bookingHistory(String username) throws CustomerException {
+	public List<BookingHistory> bookingHistory() throws CustomerException {
 		List<BookingHistory> bookingList = new ArrayList<>();
 		
 		try (Connection conn = DButil.provideConnection()) {
 			
-			PreparedStatement ps = conn.prepareStatement("select b.bus_name, b.bus_route, b.ticket_price, bs.booked_seats from buses b INNER JOIN booking_status bs ON b.bus_no = bs.bus_no AND bs.email = ? AND bs.confirm_status = 1");
+			PreparedStatement ps = conn.prepareStatement("select b.bus_name, b.bus_route, b.ticket_price, bs.booked_seats from buses b INNER JOIN booking_status bs ON b.bus_no = bs.bus_no AND bs.email = ?");
 			
-			ps.setString(1, username);
+			ps.setString(1, email);
 			
 			ResultSet rs = ps.executeQuery();
 			

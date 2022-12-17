@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.masai.exception.AdminException;
 import com.masai.exception.BusException;
+import com.masai.exception.CustomerException;
 import com.masai.model.Bus;
 import com.masai.model.Customer;
 import com.masai.utility.DButil;
@@ -16,13 +18,13 @@ import com.masai.utility.DButil;
 public class AdminDaoImpl implements AdminDao{
 
 	@Override
-	public String loginAdmin(String username, String password) throws BusException {
+	public String loginAdmin(String username, String password) throws AdminException {
 		String message = "Admin Not loged in!";
 		
 		if(username.equals("admin") & password.equals("admin123")) {
 				message = "Login Successfully.";
 		} else {
-			throw new BusException("Invalid Username or Password!");
+			throw new AdminException("Invalid Username or Password!");
 		}
 		
 		return message;
@@ -153,6 +155,12 @@ public class AdminDaoImpl implements AdminDao{
 		}
 		
 		return cust;
+	}
+
+	@Override
+	public String logout() throws AdminException {
+			
+			return "Thank You for visiting!";
 	}
 
 	
