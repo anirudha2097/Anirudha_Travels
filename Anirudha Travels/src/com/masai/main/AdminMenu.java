@@ -15,13 +15,14 @@ public class AdminMenu {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Select from following option");
+		System.out.println("============================");
 		System.out.println("1. Add Bus");
 		System.out.println("2. Show all bus details");
 		System.out.println("3. Confirm customers ticket");
 		System.out.println("4. Logout");
 		System.out.println("99. Exit Application.");
-		
 		int i = sc.nextInt();
+		System.out.println("");
 		
 		switch (i) {
 			case 1: AddBus.main(args);

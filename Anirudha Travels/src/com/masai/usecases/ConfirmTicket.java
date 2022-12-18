@@ -14,7 +14,11 @@ public class ConfirmTicket {
 		
 		try {
 			Customer cust = adminDao.confirmTicket();
-			System.out.println(cust);
+			System.out.println("");
+			System.out.println("Customer Contact Details");
+			System.out.println("Name: "+cust.getName());
+			System.out.println("Email: "+cust.getEmail());
+			System.out.println("Phone No.: "+cust.getPhone());
 			System.out.println("-----------------------------------------");
 			System.out.println("");
 			AdminMenu.main(args);

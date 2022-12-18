@@ -13,19 +13,23 @@ import com.masai.model.Bus;
 public class ShowBookingHistory {
 
 	public static void main(String[] args) {
-		
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("Enter username");
-//		String username = sc.next();
-		
-
+				
 		CustomerDao custDao = new CustomerDaoImpl();
 		
 		try {
 			List<BookingHistory> history = custDao.bookingHistory();
 			
-			history.forEach(s -> System.out.println(s));
-			System.out.println("-----------------------------------------");
+			if(history.size()>0) {
+				System.out.println("+------------+----------------------+-------+--------------+");
+				System.out.printf("| %-10s | %-20s | %-5s | %-12s |%n", "Bus No", "Route", "Seats", "Ticket Price");
+				System.out.println("+------------+----------------------+-------+--------------+");
+			}
+			history.forEach(s -> {
+				System.out.printf("| %-10s | %-20s | %-5s | %-12s |%n", s.getBusName(), s.getRoute(), s.getSeats(), s.getTicketPrice());
+			});
+			if(history.size()>0) {
+				System.out.println("+------------+----------------------+-------+--------------+");
+			}
 			System.out.println("");
 			CustomerMenu.main(args);
 			

@@ -2,7 +2,7 @@ package com.masai.model;
 
 public class BookingHistory {
 
-	private String busNo;
+	private String busName;
 	private String route;
 	private int seats;
 	private int ticketPrice;
@@ -11,20 +11,20 @@ public class BookingHistory {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookingHistory(String busNo, String route, int seats, int ticketPrice) {
+	public BookingHistory(String busName, String route, int seats, int ticketPrice) {
 		super();
-		this.busNo = busNo;
+		this.busName = busName;
 		this.route = route;
 		this.seats = seats;
 		this.ticketPrice = ticketPrice;
 	}
 
-	public String getBusNo() {
-		return busNo;
+	public String getBusName() {
+		return busName;
 	}
 
-	public void setBusNo(String busNo) {
-		this.busNo = busNo;
+	public void setBusName(String busName) {
+		this.busName = busName;
 	}
 
 	public String getRoute() {
@@ -53,7 +53,7 @@ public class BookingHistory {
 
 	@Override
 	public String toString() {
-		return "BookingHistory [busNo=" + busNo + ", route=" + route + ", seats=" + seats + ", ticketPrice="
+		return "BookingHistory [busName=" + busName + ", route=" + route + ", seats=" + seats + ", ticketPrice="
 				+ ticketPrice + "]";
 	}
 

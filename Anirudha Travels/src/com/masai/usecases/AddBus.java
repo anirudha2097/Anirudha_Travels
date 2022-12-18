@@ -53,7 +53,7 @@ public class AddBus {
 		if(type == 1) {
 			bus.setType("AC");
 		} else {
-			System.out.println("Non AC");
+			bus.setType("Non AC");
 		}
 		bus.setRoute(route.toUpperCase());
 		bus.setArrival_time(arrivalTime);

@@ -10,10 +10,6 @@ import com.masai.main.CustomerMenu;
 public class CancelTicket {
 
 	public static void main(String[] args) {
-		
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("Enter Username: ");
-//		String username = sc.next();
  		
 		CustomerDao custDao = new CustomerDaoImpl();
 		

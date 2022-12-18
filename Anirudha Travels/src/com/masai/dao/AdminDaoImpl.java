@@ -107,20 +107,28 @@ public class AdminDaoImpl implements AdminDao{
 		
 		try (Connection conn = DButil.provideConnection()) {
 			
-			PreparedStatement ps = conn.prepareStatement("select * from booking_status where confirm_status = 0");
+			PreparedStatement ps = conn.prepareStatement("select bs.booking_id, bs.email, bs.booked_seats, b.bus_name, b.bus_no, b.bus_route from booking_status bs INNER JOIN buses b ON b.bus_no = bs.bus_no AND confirm_status = 0");
 			
 			ResultSet rs = ps.executeQuery();
-			
+			int count = 1;
 			boolean flag = false;
 			while(rs.next()) {
 				flag = true;
-				System.out.println("-----------------------------------------------------------");
-				System.out.println("| "+rs.getInt("booking_id")+" | "+rs.getString("email")+" | "+rs.getString("booked_seats")+" | "+rs.getString("bus_no")+" |");
-				System.out.println("-----------------------------------------------------------");
+				if(count == 1) {
+					System.out.printf("+------------+---------------------------+--------------+----------------------+------------+-------------------------+%n");
+					System.out.printf("| %-10s | %-25s | %-12s | %-20s | %-10s | %-23s |%n", "Booking ID", "Email", "Booked Seats", "Bus Name", "Bus No", "Bus Route");
+					System.out.printf("+------------+---------------------------+--------------+----------------------+------------+-------------------------+%n");
+					count++;
+				}
+				System.out.printf("| %-10s | %-25s | %-12s | %-20s | %-10s | %-23s |%n", rs.getInt("booking_id"), rs.getString("email"), rs.getString("booked_seats"),rs.getString("bus_name"), rs.getString("bus_no"), rs.getString("bus_route"));
 			}
-			
+			if(count==2) {
+				System.out.printf("+------------+---------------------------+--------------+----------------------+------------+-------------------------+%n");
+			}
 			if(flag) {
 				Scanner sc = new Scanner(System.in);
+				System.out.println("");
+				System.out.println("To confirm ticket");
 				System.out.println("Enter Booking ID:");
 				int bid = sc.nextInt();
 				
@@ -130,19 +138,39 @@ public class AdminDaoImpl implements AdminDao{
 				int x = ps1.executeUpdate();
 				
 				if(x > 0) {
-					PreparedStatement ps2 = conn.prepareStatement("select * from customers where email = (select email from booking_status where booking_id = ?)");
-					ps2.setInt(1, bid);
+					PreparedStatement ps3 = conn.prepareStatement("select booked_seats from booking_status where booking_id = ?");
+					ps3.setInt(1, bid);
 					
-					ResultSet rs2 = ps2.executeQuery();
-					if(rs2.next()) {
-						cust.setName(rs2.getString("name"));
-						cust.setAge(rs2.getInt("age"));
-						cust.setAddress(rs2.getString("address"));
-						cust.setPhone(rs2.getString("phone_no"));
-						cust.setEmail(rs2.getString("email"));
-					} else {
-						throw new BusException("Customer not found!");
+					ResultSet rs3 = ps3.executeQuery();
+					
+					if(rs3.next()) {
+						PreparedStatement ps4 = conn.prepareStatement("update buses set available_seats = available_seats - ? where bus_no = (select bus_no from booking_status where booking_id = ?)");
+						ps4.setInt(1, rs3.getInt("booked_seats"));
+						ps4.setInt(2, bid);
+						
+						int k = ps4.executeUpdate();
+						if(k>0) {
+							System.out.println("");
+							System.out.println("Booking confirmed.");
+							
+							PreparedStatement ps2 = conn.prepareStatement("select * from customers where email = (select email from booking_status where booking_id = ?)");
+							ps2.setInt(1, bid);
+							
+							ResultSet rs2 = ps2.executeQuery();
+							
+							if(rs2.next()) {
+								cust.setName(rs2.getString("name"));
+								cust.setAge(rs2.getInt("age"));
+								cust.setAddress(rs2.getString("address"));
+								cust.setPhone(rs2.getString("phone_no"));
+								cust.setEmail(rs2.getString("email"));
+							} else {
+								throw new BusException("Customer not found!");
+							}
+						}
 					}
+					
+					
 				} else {
 					throw new BusException("ticket not confirmed.");
 				}

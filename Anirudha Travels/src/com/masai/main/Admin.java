@@ -12,9 +12,11 @@ public class Admin {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Select from following option");
+		System.out.println("============================");
 		System.out.println("1. Login");
 		System.out.println("99. Main Menu");
 		int i = sc.nextInt();
+		System.out.println("");
 		
 		switch(i) {
 		case 1: LoginAdmin.main(args);

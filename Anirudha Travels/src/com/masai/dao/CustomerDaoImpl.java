@@ -26,9 +26,9 @@ public class CustomerDaoImpl implements CustomerDao {
 			
 			PreparedStatement ps = conn.prepareStatement("insert into customers values(?,?,?,?,?,?)");
 			
-			ps.setString(1, cust.getName());
+			ps.setString(1, cust.getName().toUpperCase());
 			ps.setInt(2, cust.getAge());
-			ps.setString(3, cust.getAddress());
+			ps.setString(3, cust.getAddress().toUpperCase());
 			ps.setString(4, cust.getPhone());
 			ps.setString(5, cust.getEmail());
 			ps.setString(6, cust.getPassword());
@@ -151,17 +151,29 @@ public class CustomerDaoImpl implements CustomerDao {
 		String message = "Ticket not canceled!";
 		
 		try (Connection conn = DButil.provideConnection()){
-			PreparedStatement ps = conn.prepareStatement("select * from booking_status where email = ?");
+			PreparedStatement ps = conn.prepareStatement("select bs.booking_id, b.bus_name, b.bus_no, b.bus_route from booking_status bs INNER JOIN buses b ON b.bus_no = bs.bus_no AND email = ?");
 			ps.setString(1, email);
 			
 			ResultSet rs = ps.executeQuery();
 			boolean flag = false;
+			int count = 1;
 			while(rs.next()) {
 				flag = true;
-				System.out.println("| "+rs.getInt("booking_id")+" | "+rs.getString("email")+" | "+rs.getString("booked_seats")+" | "+rs.getString("confirm_status")+" | "+rs.getString("bus_no")+" |");
+				if(count == 1) {
+					System.out.printf("+------------+----------------------+------------+-------------------------+%n");
+					System.out.printf("| %-10s | %-20s | %-10s | %-23s |%n", "Booking ID", "Bus Name", "Bus No", "Bus Route");
+					System.out.printf("+------------+----------------------+------------+-------------------------+%n");
+					count++;
+				}
+				System.out.printf("| %-10s | %-20s | %-10s | %-23s |%n", rs.getInt("booking_id"), rs.getString("bus_name"), rs.getString("bus_no"), rs.getString("bus_route"));
+			}
+			if(count==2) {
+				System.out.printf("+------------+----------------------+------------+-------------------------+%n");
 			}
 			if(flag) {
 				Scanner sc = new Scanner(System.in);
+				System.out.println("");
+				System.out.println("To cancel ticket");
 				System.out.println("Enter Booking ID:");
 				int bookingId = sc.nextInt();
 				
@@ -198,7 +210,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			
 			while(rs.next()) {
 				BookingHistory booking = new BookingHistory();
-				booking.setBusNo(rs.getString("bus_name"));
+				booking.setBusName(rs.getString("bus_name"));
 				booking.setRoute(rs.getString("bus_route"));
 				booking.setTicketPrice(rs.getInt("ticket_price"));
 				booking.setSeats(rs.getInt("booked_seats"));

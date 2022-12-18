@@ -30,10 +30,23 @@ public class SeeBusRoutes {
 		try {
 			List<Bus> buses = custDao.showBuses(source, destination, seats);
 			
-			buses.forEach(s -> System.out.println(s));
+			if(buses.size()>0) {
+				System.out.println("");
+				System.out.printf("+----------------------+------------+--------+-------------------------+----------------+----------------+-------------+-----------------+--------------+%n");
+				System.out.printf("| %-20s | %-10s | %-6s | %-23s | %-14s | %-14s | %-11s | %-15s | %-12s |%n", "Bus Name", "Bus No", "Type", "Route", "Arrival Time", "Departure Time", "Total Seats", "Available Seats", "Ticket Price");
+				System.out.printf("+----------------------+------------+--------+-------------------------+----------------+----------------+-------------+-----------------+--------------+%n");
+				
+			}
+			buses.forEach(s -> {
+				System.out.printf("| %-20s | %-10s | %-6s | %-23s | %-14s | %-14s | %-11s | %-15s | %-12s |%n", s.getName(), s.getBus_no(), s.getType(), s.getRoute(), s.getArrival_time(), s.getDeparture_time(), s.getTotal_seats(), s.getAvailable_seats(), s.getTicket_price());
+			});
+			if(buses.size()>0) {
+				System.out.printf("+----------------------+------------+--------+-------------------------+----------------+----------------+-------------+-----------------+--------------+%n");
+				
+			}
 			
 			if(buses.size()>0) {
-
+				System.out.println("");
 				System.out.println("1. Book Ticket");
 				System.out.println("2. Back To Menu");
 				int i = sc.nextInt();

@@ -17,6 +17,7 @@ public final class LogoutAdmin {
 		
 		try {
 			String result = admin.logout();
+			System.out.println(result);
 			System.out.println("-----------------------------------------");
 			System.out.println("");
 			Main.main(args);

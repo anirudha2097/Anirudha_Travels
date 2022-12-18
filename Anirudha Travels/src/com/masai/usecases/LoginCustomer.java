@@ -26,7 +26,7 @@ public class LoginCustomer {
 		
 		try {
 			Customer cust = custDao.loginCustomer(username, password);
-			
+			System.out.println("");
 			System.out.println("Welcome "+cust.getName().toUpperCase()+"!");
 			System.out.println("");
 			System.out.println("Name: "+cust.getName());
@@ -36,7 +36,6 @@ public class LoginCustomer {
 			System.out.println("Email: "+cust.getEmail());
 			
 			System.out.println("-----------------------------------------");
-			System.out.println("");
 			CustomerMenu.main(args);
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
