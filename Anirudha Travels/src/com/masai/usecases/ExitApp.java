@@ -4,7 +4,11 @@ public class ExitApp {
 
 	public static void main(String[] args) {
 		
-		System.out.println("Thank You for visiting.");
+		try {
+			System.out.println("Thank You for visiting.");
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 
