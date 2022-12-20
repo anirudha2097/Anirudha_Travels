@@ -8,16 +8,19 @@ In this project if admin login. Admin have the access for adding new bus, confir
 add route for the bus. And for customer he/she able to login/signup, see the bus details, book a ticket, see all routes.
 All the data was stored using SQL database.</p>
 
-<h3>Types Of User:-</h3>
+<h3>Type Of Users:-</h3>
 <p>1. Administrator</p>
 <p>2. Customer</p>
 
 <h3> Roles of Administrator:-</h3>
+<li> Login to application </li>
 <li> Add Bus </li>
 <li> See All Bus Details </li>
 <li> Confirm Tickets </li>
 
 <h3> Roles of Customers:-</h3>
+<li> Login to application </li>
+<li> Register new customer </li>
 <li> See bus for the selected route </li>
 <li> See Booking History </li>
 <li> Cancel Tickets </li>
