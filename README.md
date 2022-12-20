@@ -17,6 +17,7 @@ All the data was stored using SQL database.</p>
 <li> Add Bus </li>
 <li> See All Bus Details </li>
 <li> Confirm Tickets </li>
+<li> Logout </li>
 
 <h3> Roles of Customers:-</h3>
 <li> Login to application </li>
@@ -24,6 +25,7 @@ All the data was stored using SQL database.</p>
 <li> See bus for the selected route </li>
 <li> See Booking History </li>
 <li> Cancel Tickets </li>
+<li> Logout </li>
 
 <h3>Flow Diagram of Project</h3>
 <img src = https://user-images.githubusercontent.com/107480356/208321176-ed86effe-25ea-4be1-b2c8-408afd273149.jpg />
