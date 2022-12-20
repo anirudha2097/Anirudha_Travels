@@ -12,4 +12,5 @@ All the data was stored using SQL database.</p>
 <img src = https://user-images.githubusercontent.com/107480356/208321176-ed86effe-25ea-4be1-b2c8-408afd273149.jpg />
 
 <h3>ER Diagram of Project Database</h3>
-<img src = https://user-images.githubusercontent.com/107480356/208321181-367f6331-1c93-4665-951b-032758d5ee04.jpg />
+
+<img src = https://user-images.githubusercontent.com/107480356/208589469-c15b96cd-4d86-406f-a082-02e80fd014e2.jpg />
